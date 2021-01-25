@@ -40,13 +40,10 @@ const transaction = new Queue(
       } = store
 
       if (!TRANSACTION.TYPE[type]) {
-        console.log('1', type)
         return cb('unknownType', task)
       }
 
       if (typeof amount !== 'number') {
-        console.log('2')
-
         return cb('invalidAmount', task)
       }
 
@@ -54,8 +51,6 @@ const transaction = new Queue(
       const insufficientFunds = isDebit && balance < amount
 
       if (insufficientFunds) {
-        console.log('3')
-
         return cb('insufficientFunds', task)
       }
 
@@ -75,7 +70,6 @@ export const pushTransaction = async ({ type, amount }) =>
         res(list)
       })
       .on('failed', (taskId, err) => {
-        console.log('FAILED')
         rej(err)
       })
   })
